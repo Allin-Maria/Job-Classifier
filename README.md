@@ -1,66 +1,56 @@
+Hierarchical Clustering of Job Postings
+This project scrapes job listings from Karkidi.com, extracts skill-related information, and clusters the jobs using Hierarchical Clustering. It helps to group similar job roles based on the required skills.
 
-# Job-Posting-Classification-
+ Overview
+ Scrapes job postings by keyword and location.
+ Cleans and processes skill text.
+ Converts skills into feature vectors using TF-IDF.
+ Clusters jobs using Agglomerative Clustering.
+ Saves clustered data, model, and vectorizer for reuse.
 
-This Streamlit app scrapes job listings from [Karkidi.com](https://www.karkidi.com), preprocesses and clusters them using unsupervised learning (KMeans), and recommends jobs to users based on their input skills or interests.
+📁 Files
+File/Folder	Description
+hierarchical_clustering_scrape_the_job_postings_.py	Main Python script
+clustered_jobs.csv	Output CSV with job listings and clusters
+model/karkidi_model.pkl	Saved clustering model
+model/karkidi_vectorizer.pkl	Saved TF-IDF vectorizer
 
- Features
+Installation
+Make sure you have Python 3.6+ installed, then run:
 
--  Web scraping from Karkidi.com
--  Text preprocessing (Skills + Summary)
--  TF-IDF vectorization
--  Clustering using KMeans
--  Streamlit-based interactive web app
--  Simple job recommender by user input
+bash
+Copy
+Edit
+pip install requests beautifulsoup4 pandas scikit-learn joblib
 
- Project Structure
-├── app.py                    # Streamlit app UI
-├── clustered\_jobs.csv        # Pre-scraped & clustered job data
-├── cluster\_model.pkl         # Trained KMeans model
-├── vectorizer.pkl            # Trained TF-IDF vectorizer
-├── requirements.txt          # Dependencies for the app
-├── README.md                 # You're here
+How to Run
+bash
+Copy
+Edit
+python hierarchical_clustering_scrape_the_job_postings_.py
+You can customize scraping by editing the parameters in:
 
- Installation & Run Locally
+python
+Copy
+Edit
+df_jobs = scrape_karkidi_jobs(keyword="data science", pages=2)
+
+Functions
+scrape_karkidi_jobs(keyword, pages)
+Scrapes job posts with specified keyword and number of pages.
+
+preprocess_skills(df)
+Cleans skill strings and prepares them for vectorization.
+
+cluster_jobs(df, n_clusters)
+Clusters job postings based on required skills.
+
+save_all(df, model, vectorizer)
+Saves output CSV and model files to the model/ directory.
+
+Output
+A clustered_jobs.csv file with a new column Cluster.
+Plots or analysis can be added using the Cluster column.
 
 
-# Clone the repository
-git clone https://github.com/yourusername/job-posting-classifier.git
-cd job-posting-classifier
 
-# Install dependencies
-pip install -r requirements.txt
-
-# Run the app
-streamlit run app.py
-
- It Works
-
-### 1. Scraping (`scrape_karkidi_jobs`)
-
-* Scrapes job titles, companies, locations, summaries, and skills
-
-### 2. Preprocessing
-
-* Merges summary + skills into a single text feature
-
-### 3. Clustering
-
-* Vectorizes text with `TfidfVectorizer`
-* Clusters job posts using `KMeans` into predefined clusters
-* Saves model and vectorizer with `joblib`
-
-### 4. Streamlit App
-
-* User enters their interests/skills
-* App predicts the most relevant job cluster
-* Shows jobs from that cluster
-
-## Requirements
-
-txt
-streamlit
-pandas
-scikit-learn
-beautifulsoup4
-requests
-joblib
