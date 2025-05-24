@@ -8,7 +8,6 @@ Original file is located at
 """
 
 # Ensure streamlit is installed
-!pip install streamlit
 
 import streamlit as st
 import pandas as pd
